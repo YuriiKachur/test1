@@ -4,16 +4,16 @@ const port = 3000;
 
 // Пример данных меню
 const menu = [
-  { day: 'Monday', items: ['Soup', 'Salad', 'Bread', 'Apple'] },
-  { day: 'Tuesday', items: ['Pasta', 'Tomato Sauce', 'Cheese', 'Banana'] },
-  { day: 'Wednesday', items: ['Chicken', 'Rice', 'Vegetables', 'Orange'] },
-  { day: 'Thursday', items: ['Fish', 'Potatoes', 'Green Beans', 'Pear'] },
-  { day: 'Friday', items: ['Pizza', 'Carrot Sticks', 'Yogurt', 'Grapes'] }
+  { day: 'Понеділок', items: ['Суп', 'Салат', 'Хліб', 'Печене яблучко'] },
+  { day: 'Вівторок', items: ['Паста', 'Соус', 'Сир', 'Банан'] },
+  { day: 'Середа', items: ['Курка', 'Рис', 'Овочі тушковані', 'Апельсин'] },
+  { day: 'Четвер', items: ['Риба', 'Картопля фрі', 'зелені боби', 'Персик'] },
+  { day: 'Пятниця', items: ['Піцца', 'Морквяні палички', 'Йогурт', 'Естерхазі'] }
 ];
 
 // Маршрут для главной страницы
 app.get('/', (req, res) => {
-  let menuHtml = '<h1>Menu of School Canteen</h1><ul>';
+  let menuHtml = '<h1>Меню шкільної їдальні "Джерельце"</h1><ul>';
   menu.forEach(dayMenu => {
     menuHtml += `<li><h2>${dayMenu.day}</h2><ul>`;
     dayMenu.items.forEach(item => {
