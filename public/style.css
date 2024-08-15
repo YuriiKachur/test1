@@ -1,0 +1,24 @@
+body {
+  background-image: url('/images/Pasta.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: white;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background-color: rgba(0, 0, 0, 0.7);
+  margin: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+}
