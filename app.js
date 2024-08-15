@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
       <link rel="stylesheet" href="/style.css">
     </head>
     <body>
-      <h1>Menu of School Canteen</h1>
+      <h1>Меню шкільної їдальні "Джерельце</h1>
       <ul>
   `;
   menu.forEach(dayMenu => {
