@@ -3,7 +3,7 @@ const nodemailer = require('nodemailer');
 const app = express();
 const port = 3000;
 
-// Настройка директории для статичних файлов
+// Настройка директории для статичних файлів
 app.use(express.static('public'));
 
 // Middleware для обробки POST-запитів з форм
@@ -39,4 +39,88 @@ app.get('/', (req, res) => {
       <link rel="stylesheet" href="/style.css">
     </head>
     <body>
-      <h1>Меню шкільної їдальні "Джер
+      <h1>Меню шкільної їдальні "Джерельце"</h1>
+      <form action="/order" method="post">
+        <h2>Виберіть страви:</h2>
+        <ul>
+  `;
+  
+  menu.forEach(dayMenu => {
+    menuHtml += `<li><h3>${dayMenu.day}</h3><ul>`;
+    dayMenu.items.forEach(item => {
+      menuHtml += `
+        <li>
+          <label>
+            <input type="checkbox" name="items" value="${item}">
+            ${item}
+          </label>
+        </li>
+      `;
+    });
+    menuHtml += '</ul></li>';
+  });
+  
+  menuHtml += `
+        </ul>
+        <button type="submit">Замовити</button>
+      </form>
+    </body>
+    </html>
+  `;
+  
+  res.send(menuHtml);
+});
+
+// Маршрут для обробки замовлення
+app.post('/order', (req, res) => {
+  const selectedItems = req.body.items; // Вибрані страви
+  let responseHtml = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Ваше замовлення</title>
+    </head>
+    <body>
+      <h1>Ваше замовлення</h1>
+      <h2>Вибрані страви:</h2>
+      <ul>
+  `;
+  
+  if (Array.isArray(selectedItems)) {
+    selectedItems.forEach(item => {
+      responseHtml += `<li>${item}</li>`;
+    });
+  } else if (selectedItems) {
+    responseHtml += `<li>${selectedItems}</li>`;
+  }
+  
+  responseHtml += `
+      </ul>
+      <a href="/">Назад до меню</a>
+    </body>
+    </html>
+  `;
+  
+  // Надсилання електронного листа
+  transporter.sendMail({
+    from: 'your-email@gmail.com',
+    to: 'kachur.vy@gmail.com',
+    subject: 'Нове замовлення з меню',
+    html: responseHtml
+  }, (error, info) => {
+    if (error) {
+      console.log('Error sending email:', error);
+      res.send('Сталася помилка при надсиланні замовлення.');
+    } else {
+      console.log('Email sent:', info.response);
+      res.send('Ваше замовлення надіслано!');
+    }
+  });
+});
+
+// Запуск сервера
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
