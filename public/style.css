@@ -8,6 +8,7 @@ body {
 h1 {
   text-align: center;
   color: black;
+  padding: 10px 20px;
 }
 
 ul {
